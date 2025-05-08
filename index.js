@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 const GAS_URL = process.env.GAS_URL;
+// 設定基本路由
+app.get('/', (req, res) => {
+	res.send('Hello, Zeabur!');
+});
 
 // POST → Proxy → doGet(GAS)
 app.post('/api', async (req, res) => {
