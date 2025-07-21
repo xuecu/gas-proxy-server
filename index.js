@@ -19,17 +19,17 @@ app.get('/', (req, res) => {
 // POST → Proxy → doGet(GAS)
 app.post('/api', async (req, res) => {
 	try {
-		const params = new URLSearchParams(req.body).toString();
-		const url = `${GAS_URL}?${params}`;
-		const response = await fetch(url);
-		const data = await response.json();
-		res.json(data);
+		await fetch(GAS_ENDPOINT, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(req.body),
+		});
+		console.log(`✅ Webhook from ${brand} 已轉發給 GAS`);
 	} catch (err) {
-		console.error(err);
-		res.status(500).json({ success: false, message: '連接 GAS 失敗' });
+		res.status(500).send('連接 GAS 失敗');
+		console.error(`❌ 連接 GAS 失敗`, err.message);
 	}
 });
-
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
