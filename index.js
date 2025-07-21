@@ -19,12 +19,14 @@ app.get('/', (req, res) => {
 // POST → Proxy → doGet(GAS)
 app.post('/api', async (req, res) => {
 	try {
-		await fetch(GAS_URL, {
+		const gasRes = await fetch(GAS_URL, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(req.body),
 		});
-		console.log(`✅ 已轉發給 GAS`);
+		const result = await gasRes.json();
+		console.log('✅ GAS 回傳結果：', result);
+		res.json(result); // ⬅️ 回傳給前端
 	} catch (err) {
 		res.status(500).send('連接 GAS 失敗');
 		console.error(`❌ 連接 GAS 失敗`, err.message);
