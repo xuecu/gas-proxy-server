@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 // POST → Proxy → doGet(GAS)
 app.post('/api', async (req, res) => {
 	try {
-		await fetch(GAS_ENDPOINT, {
+		await fetch(GAS_URL, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(req.body),
