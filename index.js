@@ -24,7 +24,7 @@ app.post('/api', async (req, res) => {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(req.body),
 		});
-		console.log(`✅ Webhook from ${brand} 已轉發給 GAS`);
+		console.log(`✅ 已轉發給 GAS`);
 	} catch (err) {
 		res.status(500).send('連接 GAS 失敗');
 		console.error(`❌ 連接 GAS 失敗`, err.message);
